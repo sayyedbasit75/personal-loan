@@ -1,0 +1,12 @@
+.input-group-addon{
+    position: absolute;
+    margin: 33px 0px 0px -60px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.mobileinput{
+    margin-left: 40px;
+    width: 95%;
+}

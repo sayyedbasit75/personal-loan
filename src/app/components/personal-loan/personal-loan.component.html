@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="row mt-5">
+        <!-- *ngIf is used to hide and show form  -->
+        <div class="col-md-8 m-auto" *ngIf="isRegistration">
+            <h2 class="text-center">Form To Apply Personal Loan</h2>
+
+            <!-- Connect form with TS File  -->
+            <form [formGroup]="form">
+                <div class="mb-3">
+                    <label for="city" class="form-label">City <span class="text-danger">*</span> </label>
+                    <input formControlName="city" type="text" class="form-control" id="city" placeholder="City">
+
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger" *ngIf="f.city.touched && f.city.invalid && f.city.errors?.required">City
+                        is Required</span>
+                </div>
+                <div class="mb-3">
+                    <label for="PanNumber" class="form-label">Pan number <span class="text-danger">*</span> </label>
+                    <input formControlName="panNumber" type="text" class="form-control" id="PanNumber"
+                        placeholder="Pan number">
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.panNumber.touched && f.panNumber.invalid && f.panNumber.errors?.required">Pan Number
+                        is Required</span>
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.panNumber.touched && f.panNumber.invalid && f.panNumber.errors?.pattern">Enter Valid
+                        Pan Number</span>
+                </div>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span> </label>
+                    <input formControlName="fullName" type="text" class="form-control" id="fullName"
+                        placeholder="Full Name">
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.fullName.touched && f.fullName.invalid && f.fullName.errors?.required">Full Name
+                        is Required</span>
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.fullName.touched && f.fullName.invalid && f.fullName.errors?.maxlength">Full Name
+                        should be 140 characters only</span>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span> </label>
+                    <input formControlName="email" type="text" class="form-control" id="email" placeholder="Email">
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.email.touched && f.email.invalid && f.email.errors?.required">Email
+                        is Required</span>
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.email.touched && f.email.invalid && f.email.errors?.maxlength">Email
+                        should be 255 characters only</span>
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile <span class="text-danger">*</span> </label>
+                    <span class="input-group-addon">+91</span>
+                    <input formControlName="mobile" type="text" class="form-control mobileinput" placeholder="Mobile"
+                        (input)="sendOtp()">
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.mobile.touched && f.mobile.invalid && f.mobile.errors?.required">Mobile No
+                        is Required</span>
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger"
+                        *ngIf="f.mobile.touched && f.mobile.invalid && f.mobile.errors?.maxlength">Mobile No should be
+                        10 digits only</span>
+                </div>
+                <div class="row" *ngIf="isOtpReceived">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="otp" class="form-label">OTP <span class="text-danger">*</span> </label>
+                            <input formControlName="otp" type="text" class="form-control" placeholder="otp"
+                                (input)="checkOTP()">
+                            <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                            <span class="text-danger"
+                                *ngIf="f.otp.touched && f.otp.invalid && f.otp.errors?.required">OTP
+                                is Required</span>
+                            <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                            <span class="text-danger"
+                                *ngIf="f.otp.touched && f.otp.invalid && f.otp.errors?.maxlength">otp
+                                should be 4 digits only</span>
+                        </div>
+                    </div>
+                    <div class="col" *ngIf="hideResendButton">
+                        <button class="btn btn-primary" style="margin-top: 32px;" [disabled]="otpResendButton"
+                            (click)="resendOtp()">Resend OTP</button>
+                    </div>
+                    <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
+                    <span class="text-danger" *ngIf="resendOtpErrMsg">Please Try Again After an Hour</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Displayed after registration form filled and OTP is verified -->
+    <div class="col-md-8 m-auto" *ngIf="!isRegistration">
+        <h2 class="text-center">Thank you for verification {{fullName}} </h2>
+    </div>
+</div>
