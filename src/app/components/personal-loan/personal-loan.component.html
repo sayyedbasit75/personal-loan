@@ -55,8 +55,11 @@
                 <div class="mb-3">
                     <label for="mobile" class="form-label">Mobile <span class="text-danger">*</span> </label>
                     <span class="input-group-addon">+91</span>
-                    <input formControlName="mobile" type="text" class="form-control mobileinput" placeholder="Mobile"
+                    <input formControlName="mobile" type="text" minlength="10" maxlength="10"
+                        class="form-control mobileinput" placeholder="Mobile" (keypress)="numberOnly($event)"
                         (input)="sendOtp()">
+                    <!-- <input formControlName="mobile" type="text" maxlength="10" class="form-control mobileinput" placeholder="Mobile"
+                        (input)="sendOtp($event)"> -->
                     <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
                     <span class="text-danger"
                         *ngIf="f.mobile.touched && f.mobile.invalid && f.mobile.errors?.required">Mobile No
@@ -66,12 +69,13 @@
                         *ngIf="f.mobile.touched && f.mobile.invalid && f.mobile.errors?.maxlength">Mobile No should be
                         10 digits only</span>
                 </div>
+                <!-- *ngIf="isOtpReceived" -->
                 <div class="row" *ngIf="isOtpReceived">
                     <div class="col">
                         <div class="mb-3">
                             <label for="otp" class="form-label">OTP <span class="text-danger">*</span> </label>
-                            <input formControlName="otp" type="text" class="form-control" placeholder="otp"
-                                (input)="checkOTP()">
+                            <input formControlName="otp" type="text" maxlength="4" class="form-control"
+                                placeholder="otp" (input)="checkOTP()" (keypress)="numberOnly($event)">
                             <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
                             <span class="text-danger"
                                 *ngIf="f.otp.touched && f.otp.invalid && f.otp.errors?.required">OTP
@@ -82,9 +86,10 @@
                                 should be 4 digits only</span>
                         </div>
                     </div>
+                    <!-- *ngIf="hideResendButton" -->
                     <div class="col" *ngIf="hideResendButton">
                         <button class="btn btn-primary" style="margin-top: 32px;" [disabled]="otpResendButton"
-                            (click)="resendOtp()">Resend OTP</button>
+                            (click)="resendOtp()">Resend OTP</button> <span class="timer" id="timer"></span>
                     </div>
                     <!-- ERROR MESSAGE SHOW ON CONDITIONALLY -->
                     <span class="text-danger" *ngIf="resendOtpErrMsg">Please Try Again After an Hour</span>

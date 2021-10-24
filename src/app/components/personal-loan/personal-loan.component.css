@@ -10,3 +10,10 @@
     margin-left: 40px;
     width: 95%;
 }
+
+
+.timer{
+    position: absolute;
+    margin: 34px 0px 0px 15px;
+    font-size: 22px;
+}
