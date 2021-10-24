@@ -23,8 +23,6 @@ export class PersonalLoanComponent implements OnInit {
   resendOtpCount: number = 0 // OTP Count - how many time resend button clicked
   fullName: string = '' // property used to dispay name on Thank you screen
 
-  timer: string = ''
-
   constructor(
     private fb: FormBuilder,
     private otpService: OtpService
